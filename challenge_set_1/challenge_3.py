@@ -1,9 +1,9 @@
 import binascii
 from collections import Counter
-from typing import List, Tuple, Optional
-from challenge_2 import xor
+from typing import List, Optional, Tuple
 
 import numpy as np
+from challenge_2 import xor
 
 english_letter_freqs = {
     "E": 0.13,

@@ -1,7 +1,6 @@
 import binascii
 
 import numpy as np
-
 from challenge_3 import crack_single_xor_cypher, fitting_quotient
 
 if __name__ == "__main__":

@@ -3,7 +3,6 @@ from itertools import zip_longest
 from typing import List
 
 import numpy as np
-
 from challenge_4 import crack_single_xor_cypher
 
 

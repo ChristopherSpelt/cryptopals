@@ -1,5 +1,6 @@
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import base64
+
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
 def decrypt_AES_ECB(cypthertext: bytes, key: bytes) -> bytes:
