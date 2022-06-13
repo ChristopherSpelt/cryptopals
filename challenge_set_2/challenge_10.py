@@ -33,7 +33,7 @@ def split_into_blocks(input: bytes, blocksize: int) -> List[bytes]:
     return blocks
 
 
-def encrypt_in_CBC_mode(
+def encrypt_AES_CBC(
     plaintext: bytes, key: bytes, initialization_vector: bytes
 ) -> bytes:
     block_length = len(key)
@@ -45,7 +45,7 @@ def encrypt_in_CBC_mode(
     return b"".join(blocks)
 
 
-def decrypt_in_CBC_mode(
+def decrypt_AES_CBC(
     cyphertext: bytes, key: bytes, initialization_vector: bytes
 ) -> bytes:
     block_length = len(key)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     key = b"YELLOW SUBMARINE"
     iv = b"\x00" * len(key)
-    plaintext = decrypt_in_CBC_mode(
+    plaintext = decrypt_AES_CBC(
         cyphertext=cyphertext, key=key, initialization_vector=iv
     )
     print(plaintext)
