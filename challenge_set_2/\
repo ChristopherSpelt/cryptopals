@@ -1,7 +1,7 @@
 import random
 import secrets
 import sys
-from typing import Optional, Tuple
+from typing import Tuple
 
 sys.path.append("../challenge_set_1/")
 from challenge_7 import encrypt_AES_ECB
@@ -9,11 +9,8 @@ from challenge_7 import encrypt_AES_ECB
 from challenge_10 import encrypt_AES_CBC
 
 
-def encryption_oracle(
-    input: bytes, key: Optional[bytes] = None, only_ECB: bool = False
-) -> bytes:
-    if not key:
-        key = secrets.token_bytes(16)
+def encryption_oracle(input: bytes) -> bytes:
+    key = secrets.token_bytes(16)
     append_len_1 = random.randint(5, 10)
     append_len_2 = random.randint(5, 10)
     append_1 = secrets.token_bytes(append_len_1)
@@ -21,11 +18,11 @@ def encryption_oracle(
 
     plaintext = append_1 + input + append_2
     encryption_method = random.randint(0, 1)
-    if not only_ECB and encryption_method == 0:
+    print(f"encryption method: {encryption_method}")
+    if encryption_method == 0:
         iv = secrets.token_bytes(len(key))
         return encrypt_AES_CBC(plaintext=plaintext, key=key, initialization_vector=iv)
     else:
-        print(f'plaintext: {len(plaintext)}')
         return encrypt_AES_ECB(plaintext=plaintext, key=key)
 
 
@@ -48,8 +45,4 @@ if __name__ == "__main__":
         plaintext = bytes(file.read(), encoding="ascii")
 
     cyphertext = encryption_oracle(plaintext)
-    print(
-        "ECB detected"
-        if detect_ECB_encryption_mode(cyphertext, 16)
-        else "ECB not detected"
-    )
+    print(detect_ECB_encryption_mode(cyphertext, 16))

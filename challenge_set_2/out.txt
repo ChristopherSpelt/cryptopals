@@ -1,0 +1,11 @@
+b'\x8cOZ;m\x12\xfaAJ\xb2\xfb\x91\xe7\x9d'
+cyphertext: b''
+input size is 1 bytes with output of length 0
+
+
+b'Z$\xa7\xbd\xd8\x13t\x8f\x0e\xcaAAZw\xc5\xb2\x05\xcf\xfeZj'
+cyphertext: b'q\x8b\x18\xe1^\x88o>\xea\xb3\x1a@\xe1\xadPT'
+input size is 2 bytes with output of length 16
+
+
+16
