@@ -1,6 +1,8 @@
 import base64
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+
 
 
 def decrypt_AES_ECB(cypthertext: bytes, key: bytes) -> bytes:
@@ -10,8 +12,11 @@ def decrypt_AES_ECB(cypthertext: bytes, key: bytes) -> bytes:
 
 def encrypt_AES_ECB(plaintext: bytes, key: bytes) -> bytes:
     encryptor = Cipher(algorithms.AES(key), modes.ECB()).encryptor()
-    cypthertext = encryptor.update(plaintext)
-    return cypthertext
+    padder = padding.PKCS7(128).padder()
+    plaintext = padder.update(plaintext)
+    cyphertext = encryptor.update(plaintext)
+#    print(f"cyphertext: {cyphertext}")
+    return cyphertext
 
 if __name__ == "__main__":
     key = b"YELLOW SUBMARINE"
