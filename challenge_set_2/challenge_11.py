@@ -10,23 +10,26 @@ from challenge_10 import encrypt_AES_CBC
 
 
 def encryption_oracle(
-    input: bytes, key: Optional[bytes] = None, only_ECB: bool = False
+    input: bytes,
+    key: Optional[bytes] = None,
+    only_ECB: bool = False,
+    append: bool = False,
 ) -> bytes:
     if not key:
         key = secrets.token_bytes(16)
-    append_len_1 = random.randint(5, 10)
-    append_len_2 = random.randint(5, 10)
-    append_1 = secrets.token_bytes(append_len_1)
-    append_2 = secrets.token_bytes(append_len_2)
+    if append:
+        append_len_1 = random.randint(5, 10)
+        append_len_2 = random.randint(5, 10)
+        append_1 = secrets.token_bytes(append_len_1)
+        append_2 = secrets.token_bytes(append_len_2)
+        input = append_1 + input + append_2
 
-    plaintext = append_1 + input + append_2
     encryption_method = random.randint(0, 1)
     if not only_ECB and encryption_method == 0:
         iv = secrets.token_bytes(len(key))
-        return encrypt_AES_CBC(plaintext=plaintext, key=key, initialization_vector=iv)
+        return encrypt_AES_CBC(plaintext=input, key=key, initialization_vector=iv)
     else:
-        print(f'plaintext: {len(plaintext)}')
-        return encrypt_AES_ECB(plaintext=plaintext, key=key)
+        return encrypt_AES_ECB(plaintext=input, key=key)
 
 
 def detect_ECB_encryption_mode(input: bytes, keysize: int) -> bool:
@@ -47,7 +50,7 @@ if __name__ == "__main__":
     with open("data/challenge_10_1.txt") as file:
         plaintext = bytes(file.read(), encoding="ascii")
 
-    cyphertext = encryption_oracle(plaintext)
+    cyphertext = encryption_oracle(plaintext, append=True)
     print(
         "ECB detected"
         if detect_ECB_encryption_mode(cyphertext, 16)

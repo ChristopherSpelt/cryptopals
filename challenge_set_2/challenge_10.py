@@ -1,11 +1,9 @@
 import base64
 import sys
-from posixpath import split
-from pydoc import plain
 from typing import List
 
 sys.path.append("../challenge_set_1/")
-from challenge_7 import decrypt_AES_ECB, encrypt_AES_ECB
+from challenge_7 import decrypt_AES_ECB, encrypt_AES_ECB_block
 
 from challenge_9 import pad_block
 
@@ -38,10 +36,9 @@ def encrypt_AES_CBC(
 ) -> bytes:
     block_length = len(key)
     blocks = split_into_blocks(plaintext, block_length)
-
-    blocks[0] = encrypt_AES_ECB(xor(blocks[0], initialization_vector), key)
+    blocks[0] = encrypt_AES_ECB_block(xor(blocks[0], initialization_vector), key)
     for i in range(1, len(blocks)):
-        blocks[i] = encrypt_AES_ECB(xor(blocks[i - 1], blocks[i]), key)
+        blocks[i] = encrypt_AES_ECB_block(xor(blocks[i - 1], blocks[i]), key)
     return b"".join(blocks)
 
 
