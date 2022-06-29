@@ -1,10 +1,6 @@
 import base64
-from cgi import test
 import string
 import secrets
-
-from numpy import block
-
 
 from challenge_11 import encryption_oracle, detect_ECB_encryption_mode
 
