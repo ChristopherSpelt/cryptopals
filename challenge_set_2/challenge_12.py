@@ -51,11 +51,11 @@ def decrypt_ECB_oracle(oracle: Callable[[bytes], bytes], blocksize: int) -> byte
             if out == cyphertext:
                 decypted_message += bytes(char, "ascii")
                 break
-    return decypted_message
+    return decypted_message.decode("ascii")
 
 
 if __name__ == "__main__":
     blocksize = detect_block_size(ECB_encryption_oracle)
     print(f"blocksize is {blocksize}")
     print(f"oracle using ECB: {detect_ECB(ECB_encryption_oracle, blocksize)}")
-    print(f"decrypted text is: {decrypt_ECB_oracle(ECB_encryption_oracle, blocksize)}")
+    print(f"decrypted text is:\n{decrypt_ECB_oracle(ECB_encryption_oracle, blocksize)}")
