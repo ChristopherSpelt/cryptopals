@@ -5,7 +5,7 @@ from typing import List
 sys.path.append("../challenge_set_1/")
 from challenge_7 import encrypt_AES_ECB_block, decrypt_AES_ECB_block
 
-from challenge_9 import pkcs7_pad, pkcs7_unpad
+from challenge_9_and_15 import pkcs7_pad, pkcs7_unpad
 
 
 def xor(x: bytes, y: bytes) -> bytes:
