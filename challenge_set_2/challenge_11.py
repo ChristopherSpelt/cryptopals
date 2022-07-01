@@ -10,11 +10,11 @@ from challenge_10 import encrypt_AES_CBC
 
 def encryption_oracle(input: bytes) -> bytes:
     key = secrets.token_bytes(16)
-    append_len_1 = random.randint(5, 10)
-    append_len_2 = random.randint(5, 10)
-    append_1 = secrets.token_bytes(append_len_1)
-    append_2 = secrets.token_bytes(append_len_2)
-    input = append_1 + input + append_2
+    prefix_len = random.randint(5, 10)
+    suffix_len = random.randint(5, 10)
+    prefix = secrets.token_bytes(prefix_len)
+    suffix = secrets.token_bytes(suffix_len)
+    input = prefix + input + suffix
 
     encryption_method = random.randint(0, 1)
     if encryption_method == 0:
